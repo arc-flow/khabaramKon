@@ -22,4 +22,6 @@ urlpatterns = [
     path("", index, name="index"),
     path('admin/', admin.site.urls),
     path('status/', check_status,name="status"),
+    path("login/", LoginView, name="login"),
+    path("otp/", verifyOTPView, name="otp")
 ]

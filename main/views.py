@@ -32,8 +32,6 @@ def index(request):
             print(response_data["content"])
             #next request to metis
             api_url2 = "https://api.metisai.ir/api/v1/chat/session/73ac67e6-ed3a-4c02-a1ef-3369e4d5e6b3/message"
-            print(response_data["content"])
-            print(f"****{get_posts(json.loads(response_data["content"]))}*****")
             data2 = {"message":{
                 "content":f"{get_posts(dict(response_data["content"]))}\nآیا در آگهی های بالا آگهی متناسب با ویژگی های \"{prompt}\" وجود داره؟",
                 "type":"USER"

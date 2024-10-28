@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 import random
 import datetime
 from django.contrib.auth import login
+from ast import literal_eval
+from .send_sms import *
 
 
 def check_status(request):
@@ -21,7 +23,8 @@ def index(request):
         if form.is_valid():
             prompt = form.cleaned_data.get('prompt')
             print(prompt)
-            api_url = "https://api.metisai.ir/api/v1/chat/session/94df69b6-d097-42cc-9293-c87a254f11c7/message"
+            # تحلیل کننده پرامپت
+            api_url = "https://api.metisai.ir/api/v1/chat/session/6e2377f5-1985-4c81-95e7-b9836b02cf45/message"
             headers = { "Authorization" : "tpsg-NQ0pyhU50rjz2968KkpMieosIvLjl1K" , 
                        "Content-Type" : "application/json"}
             data = {"message":{
@@ -31,14 +34,19 @@ def index(request):
             response_data = post_data(api_url, data , headers=headers)
             print(response_data["content"])
             #next request to metis
-            api_url2 = "https://api.metisai.ir/api/v1/chat/session/73ac67e6-ed3a-4c02-a1ef-3369e4d5e6b3/message"
-            #data2 = {"message":{
-            #    "content":f"{get_posts(dict(response_data["content"]))}\nآیا در آگهی های بالا آگهی متناسب با ویژگی های \"{prompt}\" وجود داره؟",
-            #    "type":"USER"
-            #        }}
-            #print(data2)
-            #response_data_final_result = post_data(api_url2, data2 , headers=headers)
-            #print(response_data_final_result["content"])
+            api_url2 = "https://api.metisai.ir/api/v1/chat/session/8135fbaa-0ae8-48c4-a9ca-b32db9d0e885/message"
+            data2 = {"message":{
+               "content":f'{get_posts(literal_eval(response_data["content"]))}\nآیا در آگهی های بالا آگهی متناسب با ویژگی های "{prompt}" وجود داره؟',
+               "type":"USER"
+                   }}
+            print(data2)
+            response_data_final_result = post_data(api_url2, data2 , headers=headers)
+            response_final = literal_eval(response_data_final_result["content"])
+            print(response_data_final_result["content"])
+            if response_final["status"] == 200:
+                print(f"https://divar.ir/v/{response_final["token"]}")
+                print(request.user.phone)
+                sendMessange(f"https://divar.ir/v/{response_final["token"]}", str(request.user.phone))
 
     else:
         form = PromptForm()

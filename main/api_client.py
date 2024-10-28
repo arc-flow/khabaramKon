@@ -12,21 +12,6 @@ def post_data(api_url, data, headers):
     except Exception as err:
         print(f"An error occurred: {err}")
 
-def send_otp(phone, otp):
-    try:
-        api = KavenegarAPI('6255497A36346F58334655592F746F7463455377774C5577332B48413153325730774F48396A436B486D633D')
-        params = {
-            'receptor': phone,
-            'template': 'verify',
-            'token': str(otp),
-            'type': 'sms',
-        }
-        response = api.verify_lookup(params)
-        print(response)
-    except APIException as e: 
-        print(e)
-    except HTTPException as e: 
-        print(e)
 
 def clean_posts(posts):
     for r in posts:
@@ -60,3 +45,4 @@ def get_posts(q):
     except Exception as e:
         print(e)
         return
+    

@@ -32,15 +32,13 @@ def clean_posts(posts):
     return posts
 def get_posts(q):
     try:
-        print(q["query"])
         r = requests.post("https://api.divar.ir/v1/open-platform/finder/post", json={
             "city": "tehran",
             "category": "light",
             "query": dict(q["query"])
-            },headers={"Content-Type": "application/json", "x-api-key":"eyJhbGciOiJSUzI1NiIsImtpZCI6InByaXZhdGVfa2V5XzIiLCJ0eXAiOiJKV1QifQ.eyJhcHBfc2x1ZyI6Im1vb3ItaXJvbi1qYWd1YXIiLCJhdWQiOiJzZXJ2aWNlcHJvdmlkZXJzIiwiZXhwIjoxNzM0Nzc5OTM0LCJqdGkiOiI2YzRmM2FlYy05MDY3LTExZWYtYjM1ZS1mYWFiMDYxNzA5ZmMiLCJpYXQiOjE3Mjk1OTU5MzQsImlzcyI6ImRpdmFyIiwic3ViIjoiYXBpa2V5In0.AJSNFlbXsb8y_D1F4D4uTsTg2J_T3r_vOZznfoEwWTFyZJeszEKzZQLNbVDDC7svD_onK0spppBj8dB4JhPwiKiKrU_07Mz_EIyMr_7LhtvT6wTbf8zd8ztrbd3PSeFDwt9otVeP73awP0x18DJq3nSZeUarehS9g0PC-oLU4Fb4WRdvjOUFfDBu0QGV3OT8vbS4TZ17BBRVIKKwfY1zyISsqzAbIQ8vK5mGrncyS5WXDE9ndikLMPgcdmEj87POC-u_cM8iVpS_scLJc0g6ps35yeZafw14hyhiYhluuLTnocQ32PgfvIcYLV7Of7Juf-aiK8W_BQrTVoV5VaGHrQ"})
+            },headers={"Content-Type": "application/json", "x-api-key":"eyJhbGciOiJSUzI1NiIsImtpZCI6InByaXZhdGVfa2V5XzIiLCJ0eXAiOiJKV1QifQ.eyJhcHBfc2x1ZyI6ImdyZWF0LXdhbG51dC1nb29zZSIsImF1ZCI6InNlcnZpY2Vwcm92aWRlcnMiLCJleHAiOjE3MzUzMjMxMjAsImp0aSI6IjIwNmU5ZmIyLTk1NTgtMTFlZi05YmY5LTVlZGI4OGNiMjZmMiIsImlhdCI6MTczMDEzOTEyMCwiaXNzIjoiZGl2YXIiLCJzdWIiOiJhcGlrZXkifQ.P_eN4cfWlONgOD6ZLkXTsruN1bUHtHiNf8UmdynJvlha3vIwc0ybua6aHNCQnScjsGYjIOKdr0LbCwA_501MI8tbi0kBaRT-xkaREFuCvbWgt3WyYKocncaIslfVHljF8xefFFb33Hgqt1zW5B4FVpnb3PJ_cE_13-3QFZJfN5iqCDKtqB-f_HEmbzvj8c0ckXYcMD3u9fuS0uMBT-92QGij2DBajgdiN4ovf4XCS-qK5-PaLqOwBFkCQKe-oEZwbYloJrFYtTf_hLA4UG_0YwCOUR1Nem6z4kNGm9rIfP6jtaUVOiFwRB79-SsEyqqUdLso85C78ucMjsVujpLciA"})
         r = r.json()["posts"][:5]
         r = clean_posts(r)
-        print(f"***{r}***")
         return r
     except Exception as e:
         print(e)

@@ -2,11 +2,9 @@ jobs:
   install_dependencies:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Docker Compose plugin
-        run: |
-          mkdir -p ~/.docker/cli-plugins/
-          curl -SL https://github.com/docker/compose/releases/download/v2.30.1/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
-          chmod +x ~/.docker/cli-plugins/docker-compose
+    - uses: KengoTODA/actions-setup-docker-compose@v1
+      with:
+        version: '2.30.1'
   darkube_build_khabaramkon-web_genx-arcflow_hamravesh-c13:
     needs: install_dependencies
     container:

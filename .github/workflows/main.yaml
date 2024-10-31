@@ -1,0 +1,48 @@
+jobs:
+  darkube_build_khabaramkon-web_genx-arcflow_hamravesh-c13:
+    container:
+      image: hamravesh/darkube-cli:v1.1
+      options: --user root
+    env:
+      IMAGE_NAME: registry.hamdocker.ir/genx-arcflow/khabaramkon-web
+      IMAGE_NAME2: registry.hamdocker.ir/genx-arcflow/khabaramkon-celery
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout commit
+      uses: actions/checkout@v4
+    - name: docker build and push
+      run: docker compose build
+    - name: login to hamdocker
+      run: docker login registry.hamdocker.ir/genx-arcflow -u genx-arcflow -p ${{secrets.docker_password}}
+    - name: push web image
+      run: docker tag khabaramkon-web $IMAGE_NAME:${GITHUB_SHA:0:7} && docker push $IMAGE_NAME:${GITHUB_SHA:0:7}
+    - name: push celery image
+      run: docker tag khabaramkon-celery $IMAGE_NAME2:${GITHUB_SHA:0:7} && docker push $IMAGE_NAME2:${GITHUB_SHA:0:7}
+      
+      
+      
+  darkube_deploy_khabaramkon-web_genx-arcflow_hamravesh-c13:
+    container: hamravesh/darkube-cli:v1.1
+    needs: darkube_build_khabaramkon-web_genx-arcflow_hamravesh-c13
+    runs-on: ubuntu-latest
+    steps:
+    - name: darkube-cli deploy
+      run: darkube deploy --token ${{secrets.DEPLOY_TOKEN_KHABARAMKON_WEB_GENX_ARCFLOW_HAMRAVESH_C13}}
+        --app-id ${{secrets.APP_ID_KHABARAMKON_WEB_GENX_ARCFLOW_HAMRAVESH_C13}} --image-tag
+        ${GITHUB_SHA:0:7} --job-id ${GITHUB_RUN_ID}
+  
+  darkube_deploy_khabaramkon-celery_genx-arcflow_hamravesh-c13:
+    container: hamravesh/darkube-cli:v1.1
+    needs: darkube_build_khabaramkon-celery_genx-arcflow_hamravesh-c13
+    runs-on: ubuntu-latest
+    steps:
+    - name: darkube-cli deploy
+      run: darkube deploy --token ${{secrets.DEPLOY_TOKEN_KHABARAMKON_CELERY_GENX_ARCFLOW_HAMRAVESH_C13}}
+        --app-id ${{secrets.APP_ID_KHABARAMKON_CELERY_GENX_ARCFLOW_HAMRAVESH_C13}}
+        --image-tag ${GITHUB_SHA:0:7} --job-id ${GITHUB_RUN_ID}
+
+'on':
+  push:
+    branches:
+    - main
+

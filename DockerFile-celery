@@ -3,7 +3,7 @@ FROM ubuntu:latest
 
 # به‌روز رسانی سیستم و نصب پکیج‌های مورد نیاز
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip redis-server && \
+    apt-get install -y python3 python3-pip redis-server python3.12-venv && \
     apt-get clean
 
 # تعیین دایرکتوری کار

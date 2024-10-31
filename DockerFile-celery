@@ -3,7 +3,7 @@ FROM ubuntu:latest
 
 # به‌روز رسانی سیستم و نصب پکیج‌های مورد نیاز
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip redis-server python3.12-venv && \
+    apt-get install -y python3 python3-pip redis-server pipx && \
     apt-get clean
 
 # تعیین دایرکتوری کار
@@ -15,9 +15,7 @@ COPY requirements.txt .
 # نصب کتابخانه‌های Python مورد نیاز
 EXPOSE 6379
 
-RUN python3 -m venv env && source env/bin/activate
-
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pipx install --no-cache-dir -r requirements.txt
 
 # کپی کردن کدهای برنامه به دایرکتوری کار
 COPY . .

@@ -18,7 +18,7 @@ jobs:
     - name: checkout commit
       uses: actions/checkout@v4
     - name: docker build and push
-      run: docker compose build
+      run: docker-compose build
     - name: login to hamdocker
       run: docker login registry.hamdocker.ir/genx-arcflow -u genx-arcflow -p ${{secrets.docker_password}}
     - name: push web image

@@ -11,7 +11,7 @@ jobs:
     - name: checkout commit
       uses: actions/checkout@v4
     - name: Install docker-compose
-      run: sudo apt-get update && sudo apt-get install -y docker-compose-plugin
+      run:  apt-get update && sudo apt-get install -y docker-compose-plugin
     - name: docker build and push
       run: docker compose build
     - name: login to hamdocker

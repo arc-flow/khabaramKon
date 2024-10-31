@@ -14,6 +14,8 @@ jobs:
         version: '2.30.1'
     - name: checkout commit
       uses: actions/checkout@v4
+    - name: clear cache      
+      run: docker system prune -a
     - name: docker build and push
       run: docker-compose build
     - name: login to hamdocker

@@ -22,5 +22,5 @@ COPY . .
 RUN service redis-server start
 
 # اجرای Celery
-CMD ["celery", "-A", "khabaramkon", "worker", "--loglevel=info"]
+CMD ["celery", "-A", "khabaramKon", "worker", "--loglevel=info"]
 

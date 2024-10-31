@@ -1,10 +1,4 @@
 jobs:
-  install_dependencies:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: KengoTODA/actions-setup-docker-compose@v1
-      with:
-        version: '2.30.1'
   darkube_build_khabaramkon-web_genx-arcflow_hamravesh-c13:
     needs: install_dependencies
     container:
@@ -15,6 +9,9 @@ jobs:
       IMAGE_NAME2: registry.hamdocker.ir/genx-arcflow/khabaramkon-celery
     runs-on: ubuntu-latest
     steps:
+    - uses: KengoTODA/actions-setup-docker-compose@v1
+      with:
+        version: '2.30.1'
     - name: checkout commit
       uses: actions/checkout@v4
     - name: docker build and push

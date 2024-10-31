@@ -1,5 +1,12 @@
 jobs:
+  install_dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Docker Compose plugin
+        run: |
+          apt-get update && apt-get install -y docker-compose-plugin
   darkube_build_khabaramkon-web_genx-arcflow_hamravesh-c13:
+    needs: install_dependencies
     container:
       image: hamravesh/darkube-cli:v1.1
       options: --user root
@@ -10,8 +17,6 @@ jobs:
     steps:
     - name: checkout commit
       uses: actions/checkout@v4
-    - name: Install docker-compose
-      run:  apt-get update && sudo apt-get install -y docker-compose-plugin
     - name: docker build and push
       run: docker compose build
     - name: login to hamdocker

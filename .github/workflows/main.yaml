@@ -1,6 +1,6 @@
 jobs:
+
   darkube_build_khabaramkon-web_genx-arcflow_hamravesh-c13:
-    needs: install_dependencies
     container:
       image: hamravesh/darkube-cli:v1.1
       options: --user root

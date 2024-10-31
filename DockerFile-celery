@@ -18,6 +18,8 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 # کپی کردن کدهای برنامه به دایرکتوری کار
 COPY . .
 
+EXPOSE 6379
+
 # راه‌اندازی Redis در پس‌زمینه
 RUN service redis-server start
 

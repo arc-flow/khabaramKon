@@ -14,12 +14,12 @@ services:
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    image: registry.hamdocker.ir/genx-arcflow/khabaramkon-web  # اضافه کردن نام تصویر
+    image: registry.hamdocker.ir/genx-arcflow/khabaramkon-web
 
   celery:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: DockerFile-celery
     container_name: celery_worker
     command: celery -A khabaramKon worker -l info
     volumes:
@@ -29,11 +29,4 @@ services:
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    image: registry.hamdocker.ir/genx-arcflow/khabaramkon-celery  # اضافه کردن نام تصویر
-
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-      - "6379:6379"
-
+    image: registry.hamdocker.ir/genx-arcflow/khabaramkon-celery

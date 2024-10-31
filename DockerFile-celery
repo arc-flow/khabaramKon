@@ -1,0 +1,26 @@
+# استفاده از تصویر پایه Ubuntu
+FROM ubuntu:latest
+
+# به‌روز رسانی سیستم و نصب پکیج‌های مورد نیاز
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip redis-server && \
+    apt-get clean
+
+# تعیین دایرکتوری کار
+WORKDIR /app
+
+# کپی کردن فایل requirements.txt به دایرکتوری کار
+COPY requirements.txt .
+
+# نصب کتابخانه‌های Python مورد نیاز
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# کپی کردن کدهای برنامه به دایرکتوری کار
+COPY . .
+
+# راه‌اندازی Redis در پس‌زمینه
+RUN service redis-server start
+
+# اجرای Celery
+CMD ["celery", "-A", "khabaramkon", "worker", "--loglevel=info"]
+

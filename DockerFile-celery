@@ -1,5 +1,5 @@
 # استفاده از تصویر پایه Ubuntu
-FROM ubuntu:latest
+FROM python:3.12-slim
 
 # به‌روز رسانی سیستم و نصب پکیج‌های مورد نیاز
 RUN apt-get update && \

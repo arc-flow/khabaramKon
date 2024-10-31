@@ -33,7 +33,7 @@ jobs:
   
   darkube_deploy_khabaramkon-celery_genx-arcflow_hamravesh-c13:
     container: hamravesh/darkube-cli:v1.1
-    needs: darkube_build_khabaramkon-celery_genx-arcflow_hamravesh-c13
+    needs: darkube_build_khabaramkon-web_genx-arcflow_hamravesh-c13
     runs-on: ubuntu-latest
     steps:
     - name: darkube-cli deploy

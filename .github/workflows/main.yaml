@@ -23,12 +23,11 @@ jobs:
     - name: docker build and push
       run: |
         docker-compose build
+        docker image ls
         docker tag registry.hamdocker.ir/genx-arcflow/khabaramkon-web $IMAGE_NAME:${GITHUB_SHA:0:7}
         docker push $IMAGE_NAME:${GITHUB_SHA:0:7}
         docker tag registry.hamdocker.ir/genx-arcflow/khabaramkon-celery $IMAGE_NAME2:${GITHUB_SHA:0:7}
         docker push $IMAGE_NAME2:${GITHUB_SHA:0:7}
-    - name: check images
-      run: docker image ls
 
   darkube_deploy_khabaramkon-web_genx-arcflow_hamravesh-c13:
     container: hamravesh/darkube-cli:v1.1

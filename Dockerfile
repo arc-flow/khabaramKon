@@ -1,11 +1,12 @@
 # Dockerfile
 
 # استفاده از تصویر رسمی Python
-FROM python:3.12-slim
+FROM python:3.12-alpine
 
 # تنظیم دایرکتوری کاری
-WORKDIR /app
+RUN apk add --no-cache redis gcc musl-dev libffi-dev
 
+WORKDIR /app
 # کپی کردن فایل‌های مورد نیاز
 COPY requirements.txt /app/requirements.txt
 
@@ -16,7 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 
 # باز کردن پورت ۸۰۰۰ برای Django
-EXPOSE 80
+EXPOSE 80 6379
 
 # دستور پیش‌فرض برای اجرای سرور Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
+CMD redis-server --daemonize yes && celery -A khabaramKon worker --loglevel=info --detach && python3 manage.py runserver 0.0.0.0:80

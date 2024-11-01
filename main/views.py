@@ -49,7 +49,8 @@ def LoginView(request):
                 user = CustomUser.objects.get(phone=phone)
                 if int(user.max_otp_try) == 0 and user.otp_max_out and timezone.now() < user.otp_max_out:
                     return HttpResponse("Max OTP try reached, try after an hour", status=400)
-                otp = random.randint(1000, 9999)
+                #otp = random.randint(1000, 9999)
+                otp = 1234
                 otp_expiry = timezone.now() + datetime.timedelta(minutes=10)
                 max_otp_try = int(user.max_otp_try) - 1
                 user.otp = otp

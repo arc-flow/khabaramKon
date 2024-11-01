@@ -1,7 +1,7 @@
 # استفاده از تصویر پایه Ubuntu
 FROM python:3.12-alpine
 # به‌روز رسانی سیستم و نصب پکیج‌های مورد نیاز
-RUN apk add --no-cache redis-server gcc musl-dev libffi-dev
+RUN apk add --no-cache redis gcc musl-dev libffi-dev
 
 # تعیین دایرکتوری کار
 WORKDIR /app

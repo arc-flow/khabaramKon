@@ -19,8 +19,6 @@ RUN pip install --break-system-packages --no-cache-dir -r requirements.txt
 COPY . .
 # راه‌اندازی Redis در پس‌زمینه
 RUN redis-server --daemonize yes
-
-RUN redis-server
 # اجرای Celery
 CMD ["celery", "-A", "khabaramKon", "worker", "--loglevel=info"]
 

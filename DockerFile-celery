@@ -17,8 +17,6 @@ RUN pip install --break-system-packages --no-cache-dir -r requirements.txt
 
 # کپی کردن کدهای برنامه به دایرکتوری کار
 COPY . .
-# راه‌اندازی Redis در پس‌زمینه
-RUN redis-server --daemonize yes
 # اجرای Celery
-CMD ["celery", "-A", "khabaramKon", "worker", "--loglevel=info"]
+CMD redis-server --daemonize yes && celery -A khabaramKon worker --loglevel=info
 

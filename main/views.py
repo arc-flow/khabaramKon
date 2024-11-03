@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import *
-from .models import CustomUser
+from .models import CustomUser, Prompt
 from .api_client import *
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
@@ -34,6 +34,8 @@ def index(request):
             response_data = post_data(api_url, data , headers=headers)
             print(response_data["content"])
             q = '{' + response_data["content"] + '}'
+            prompt_model = Prompt.objects.create(prompt=prompt, user=request.user)
+            prompt_model.save()
             send_http_request.delay(json.loads(q), prompt, str(request.user.phone))
 
     else:
@@ -49,8 +51,7 @@ def LoginView(request):
                 user = CustomUser.objects.get(phone=phone)
                 if int(user.max_otp_try) == 0 and user.otp_max_out and timezone.now() < user.otp_max_out:
                     return HttpResponse("Max OTP try reached, try after an hour", status=400)
-                #otp = random.randint(1000, 9999)
-                otp = 1234
+                otp = random.randint(1000, 9999)
                 otp_expiry = timezone.now() + datetime.timedelta(minutes=10)
                 max_otp_try = int(user.max_otp_try) - 1
                 user.otp = otp

@@ -22,15 +22,15 @@ def send_http_request(self, query, prompt, phone):
         print(response_data_final_result["content"])
         if response_final["status"] == 200:
             print(f"https://divar.ir/v/{response_final["token"]}")
-            sendMessange(f"{response_final["token"]}", phone)
-            return response_final["token"]
+            sendMessange(f"خبرم کن\nآگهی مناسب شما پیدا شد\nتوکن آگهی : {response_final["token"]}\nمتاسفانه در حال حاضر به دلایل امنیتی در پنل پیامکی امکان ارسال لینک آگهی رو نداریم و فقط میتونیم لینکش رو براتون ارسال کنیم", phone)
+            self.retry(countdown=1800, max_retries=4)
         elif response_final["status"] == 400:
             # print("وضعیت 400 است، تسک دوباره اجرا خواهد شد.")
             # برنامه‌ریزی مجدد برای ۱۰ دقیقه بعد
-            self.retry(countdown=600, max_retries=6)  # تنظیم تعداد تلاش‌ها به دلخواه
+            self.retry(countdown=600, max_retries=12)  # تنظیم تعداد تلاش‌ها به دلخواه
         else:
             print("وضعیت غیر منتظره‌ای دریافت شد.")
     except requests.exceptions.RequestException as e:
         print(f"خطا در درخواست: {e}")
         # برنامه‌ریزی مجدد برای ۱۰ دقیقه بعد
-        self.retry(countdown=600, max_retries=5)
+        self.retry(countdown=600, max_retries=6)

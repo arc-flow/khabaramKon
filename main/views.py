@@ -69,7 +69,7 @@ def LoginView(request):
                     send_otp(user.phone, otp)
                     return redirect("otp")
             except ObjectDoesNotExist:
-                user_ = CustomUser.objects.create(phone=phone)
+                user_ = CustomUser.objects.create(phone=phone,username=phone)
                 otp = random.randint(1000, 9999)
                 otp_expiry = timezone.now() + datetime.timedelta(minutes=10)
                 max_otp_try = int(user_.max_otp_try) - 1

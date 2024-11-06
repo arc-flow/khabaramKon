@@ -79,10 +79,10 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'postgres',
-            'USER': 'root',
-            'PASSWORD': 'enGkUgeULIZaXMMzDlUcrSrQ',
-            'HOST': 'alvand.liara.cloud',
-            'PORT': '30646',
+            'USER': 'postgres',
+            'PASSWORD': 'ZIocj3FR3N36yodekvpx',
+            'HOST': 'khabaramkon-db.genx-arcflow.svc',
+            'PORT': '5432',
         }
 }
 

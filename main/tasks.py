@@ -22,7 +22,8 @@ def send_http_request(self, query, prompt, phone):
         print(response_data_final_result["content"])
         if response_final["status"] == 200:
             print(f"https://divar.ir/v/{response_final["token"]}")
-            sendMessange(f"خبرم کن\nآگهی مناسب شما پیدا شد\nتوکن آگهی : {response_final["token"]}\nمتاسفانه در حال حاضر به دلایل امنیتی در پنل پیامکی امکان ارسال لینک آگهی رو نداریم و فقط میتونیم توکنش رو براتون ارسال کنیم", phone)
+            sendMessange(f"'https://divar.ir/v/{response_final["token"]}'", phone)
+            #sendMessange(f"خبرم کن\nآگهی مناسب شما پیدا شد\nتوکن آگهی : {response_final["token"]}\n متاسفانه در حال حاضر به دلایل امنیتی در پنل پیامکی امکان ارسال لینک آگهی رو نداریم و فقط میتونیم توکنش رو براتون ارسال کنیم", phone)
             self.retry(countdown=1800, max_retries=4)
         elif response_final["status"] == 400:
             # print("وضعیت 400 است، تسک دوباره اجرا خواهد شد.")
